@@ -1,4 +1,4 @@
-#az login
+az login
 ################# Dev ################
 
 $AppConfigName = "MyAppconfigUnique001"
@@ -15,8 +15,13 @@ az group create -n $ResourceGroup -l $Location
 az keyvault create -g $ResourceGroup -n $KeyVaultName
 az appconfig create -g $ResourceGroup -n $AppConfigName -l $Location
 
+#Remove any exisiting App Config values. 
+az appconfig kv delete --name $AppConfigName --key * --label * --yes
+
 ## Set a non secret value in the appconfig
 az appconfig kv set -n $appconfigname --key $NonSecretKey --value $NonSecretValue --yes    
+
+
 
 #Add the connection string to an Envirinment variable so we can get it out in our C# application
 Write-Host "Copy this value into the C# App"
