@@ -10,10 +10,16 @@ $Location = 'UK South'
 $NonSecretKey=  'platform:NonSecretValue'
 $NonSecretValue = 'This is not a secret'
 
+az keyvault purge -n $KeyVaultName
+
 # Create the infrastructure needed
 az group create -n $ResourceGroup -l $Location
 az keyvault create -g $ResourceGroup -n $KeyVaultName
 az appconfig create -g $ResourceGroup -n $AppConfigName -l $Location
+
+#Add the current user to the key vault access policy to get and list
+$currentUserObjectId = az ad signed-in-user show --query objectId -o tsv
+az keyvault set-policy --name $keyVaultName --key-permissions get list import --secret-permissions get list --object-id $currentUserObjectId
 
 #Remove any exisiting App Config values. 
 az appconfig kv delete --name $AppConfigName --key * --label * --yes
