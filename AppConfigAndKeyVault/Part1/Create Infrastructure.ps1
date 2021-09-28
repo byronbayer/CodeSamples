@@ -21,8 +21,6 @@ az appconfig kv delete --name $AppConfigName --key * --label * --yes
 ## Set a non secret value in the appconfig
 az appconfig kv set -n $appconfigname --key $NonSecretKey --value $NonSecretValue --yes    
 
-
-
 #Add the connection string to an Envirinment variable so we can get it out in our C# application
 Write-Host "Copy this value into the C# App"
 az appconfig credential list -g $ResourceGroup -n $appConfigName --query "[?name=='Primary'].connectionString" | ConvertFrom-Json

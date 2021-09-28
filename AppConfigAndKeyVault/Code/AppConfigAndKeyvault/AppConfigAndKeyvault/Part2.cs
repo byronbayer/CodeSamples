@@ -7,12 +7,10 @@ namespace AppConfigAndKeyvault
 {
     public class Part2
     {
-        private readonly string _nonSecretValue = "platform:NonSecretValue";
-        private readonly string _secretValue = "platform:SecretValue";
+        
 
         public Part2()
         {
-            var defaultAzureCredential = new DefaultAzureCredential();
             var builder = new ConfigurationBuilder();
             builder.AddAzureAppConfiguration(options =>
             {
@@ -30,13 +28,13 @@ namespace AppConfigAndKeyvault
         [Fact]
         public void GetNonSecretFromAppConfig()
         {
-            Assert.Equal("This is not a secret", Configuration[_nonSecretValue]);
+            Assert.Equal("This is not a secret", Configuration[Constance.NonSecretValue]);
         }
 
         [Fact]
         public void GetValueFromAppConfig()
         {
-            Assert.Equal("This is a secret", Configuration[_secretValue]);
+            Assert.Equal("This is a secret", Configuration[Constance.SecretValue]);
         }
     }
 }

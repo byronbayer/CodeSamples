@@ -12,9 +12,7 @@ namespace AppConfigAndKeyvault
 {
     public class Part3
     {
-        private readonly string _nonSecretValue = "platform:NonSecretValue";
-        private readonly string _secretValue = "platform:SecretValue";
-
+        
         public Part3()
         {
             var builder = new ConfigurationBuilder();
@@ -34,13 +32,13 @@ namespace AppConfigAndKeyvault
         [Fact]
         public void GetNonSecretFromAppConfig()
         {
-            Assert.Equal("This is not a secret", Configuration[_nonSecretValue]);
+            Assert.Equal("This is not a secret", Configuration[Constance.NonSecretValue]);
         }
 
         [Fact]
         public void GetSecretFromAppConfig()
         {
-            Assert.Equal("This is a secret", Configuration[_secretValue]);
+            Assert.Equal("This is a secret", Configuration[Constance.SecretValue]);
         }
 
         private static void ConfigureKeyVaultOptions(AzureAppConfigurationKeyVaultOptions kv)
@@ -95,7 +93,6 @@ namespace AppConfigAndKeyvault
                 SharedTokenCacheTenantId = Constance.DefaultTenantId,
                 VisualStudioCodeTenantId = Constance.DefaultTenantId,
                 VisualStudioTenantId = Constance.DefaultTenantId
-                
             };
             return new DefaultAzureCredential(
                 options
